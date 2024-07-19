@@ -1,8 +1,6 @@
 import serial
+import sys
 import time
-
-arduino = serial.Serial(port='/dev/ttyUSB0',  baudrate=9600, timeout=.1)
-
 
 def write_read(x):
     arduino.write(bytes(x,  'utf-8'))
@@ -10,8 +8,11 @@ def write_read(x):
     data = arduino.readline()
     return  data
 
+if __name__ == "__main__":
+  
+  arduino = serial.Serial(port=sys.argv[1],  baudrate=9600, timeout=.1)
 
-while True:
+  while True:
     num = input("Enter a number: ")
     value  = write_read(num)
     print(value)

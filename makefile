@@ -11,4 +11,4 @@ c_up:
 	arduino-cli upload controller/controller.ino $(OPTS)
 
 s_start:
-	python application/app.py
+	python application/app.py $(PORT)

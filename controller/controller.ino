@@ -1,4 +1,3 @@
-int x;
 
 void setup() {
   Serial.begin(9600);
@@ -13,7 +12,7 @@ void  loop() {
     delay(10);
 
   }
-  x = Serial.readString().toInt();
+  int x = Serial.readString().toInt();
   Serial.print(x);
 
   digitalWrite(9, LOW);

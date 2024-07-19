@@ -8,13 +8,15 @@ The hardware used is a arduino nano, it should work on other arduinos, but ymmv.
 
 For those of you who want to use the makefile, please understand that you will need to add the FQBN of your arduino and the serial port that it is connected on for it to function correctly. 
 
-**WINDOWS USERS**
-
-Do not use the makefile unless you know what you are doing, instead run the alternate commands.
+> [!CAUTION]
+> **WINDOWS USERS**
+>
+> Do not use the makefile unless you know what you are doing, instead run the alternate commands.
 
 ## Arduino
 
-**No instructions are provided for windows**
+> [!CAUTION]
+> No instructions are provided for windows
 
 To build and run the code for arduino, you must install arduino-cli for your platform.
 
@@ -50,15 +52,16 @@ Alternatively, you can install pyserial globally for your platform
 
 For NixOS users, a dev shell has been provided for your usage.
 
-**BEFORE RUNNING THE PROGRAM**
-
-You must change the serial port to the one representing your arduino.
-
-On Windows, you can find this by going into device manager and looking under the COM Ports option. It should be in the format `COM*`.
-
-On Linux, it should be `/dev/ttyUSB*` or `/dev/ttyACM*`.
-
-Once you have identified the correct serial port, you can run the program:
+> [!IMPORTANT]
+> **BEFORE RUNNING THE PROGRAM**
+>
+> You must change the serial port to the one representing your arduino.
+>
+> On Windows, you can find this by going into device manager and looking under the COM Ports option. It should be in the format `COM*`.
+>
+> On Linux, it should be `/dev/ttyUSB*` or `/dev/ttyACM*`.
+>
+> Once you have identified the correct serial port, you can run the program:
 
 ```
 make s_start
@@ -76,3 +79,10 @@ From here, you can adjust setpoints 1-7 to be at the duty cycle you desire. Thes
 
 
 On the home screen, click `Operating Mode` and set it to `Normal`. This should allow the pump to change based on the set values.
+
+## Using the Program
+
+The program is a simple python terminal program. You enter in a number between 1 and 7, and the program will set the pump to the setpoint corresponding to that number.
+
+> [!WARNING]
+> If you enter a number too fast after starting the program, it will not read that input. It will read all subsequent inputs however.

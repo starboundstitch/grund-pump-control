@@ -65,3 +65,14 @@ make s_start
 # or
 python application/app.py ${SERIAL_PORT}
 ```
+
+## Configuring the Pump
+
+To change the setpoints on the pump, you can go to:
+
+`Settings>Setpoint Influence>Predefined Setpoints>Set Additional Setpoints`
+
+From here, you can adjust setpoints 1-7 to be at the duty cycle you desire. These correspond to the characters 1-7 that you send to the program.
+
+
+On the home screen, click `Operating Mode` and set it to `Normal`. This should allow the pump to change based on the set values.

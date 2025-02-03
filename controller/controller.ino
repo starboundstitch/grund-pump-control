@@ -15,19 +15,18 @@ String readSerial() {
 
   String text = "";
   char msg = Serial.read();
-  while(msg != '\r') {
-    if(Serial.available()) {
+  while (msg != '\r') {
+    if (Serial.available()) {
       text.concat(msg);
       msg = Serial.read();
-    }
-    else
+    } else
       delay(.001);
   }
 
   return text;
 }
 
-void  loop() {
+void loop() {
   while (!Serial.available()) {
     delay(10);
   }
@@ -36,8 +35,8 @@ void  loop() {
   float newVoltage = readSerial().toFloat();
 
 
-  if(newVoltage != curVoltage) {
-    dac.setVoltage( newVoltage  * .05);
+  if (newVoltage != curVoltage) {
+    dac.setVoltage(newVoltage * .05);
     curVoltage = newVoltage;
   }
 }

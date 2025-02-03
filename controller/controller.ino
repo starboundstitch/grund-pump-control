@@ -3,6 +3,12 @@
 
 MCP4725 dac(0x60);
 
+// Global Vars
+volatile byte stopState = 0;
+static float curVoltage = 0;
+static float newVoltage = 0;
+const byte eStop = 2;
+
 void setup() {
   Serial.begin(9600);
   Serial.setTimeout(1);
@@ -31,7 +37,6 @@ void loop() {
     delay(10);
   }
 
-  static float curVoltage = 0;
   float newVoltage = readSerial().toFloat();
 
 

@@ -1,34 +1,43 @@
+#include <MCP4725.h>
+#include <Wire.h>
+
+MCP4725 dac(0x62);
 
 void setup() {
   Serial.begin(9600);
   Serial.setTimeout(1);
-  pinMode(9, OUTPUT);
-  pinMode(7, OUTPUT);
-  pinMode(5, OUTPUT);
+  Wire.begin();
+  dac.begin();
+  dac.setValue(0);
+}
+
+String readSerial() {
+
+  String text = "";
+  char msg = Serial.read();
+  while(msg != '\r') {
+    if(Serial.available()) {
+      text.concat(msg);
+      msg = Serial.read();
+    }
+    else
+      delay(.001);
+  }
+
+  return text;
 }
 
 void  loop() {
   while (!Serial.available()) {
     delay(10);
-
   }
-  int x = Serial.readString().toInt();
-  Serial.print(x);
 
-  digitalWrite(9, LOW);
-  digitalWrite(7, LOW);
-  digitalWrite(5, LOW);
+  static float curVoltage = 0;
+  float newVoltage = readSerial().toFloat();
 
-  if(x - 4 >= 0) {
-    digitalWrite(9, HIGH);
-    x -= 4;
-  }
-  if(x - 2 >= 0) {
-    digitalWrite(7, HIGH);
-    x -= 2;
-  }
-  if(x - 1 >= 0) {
-    digitalWrite(5, HIGH);
-    x -= 1;
+
+  if(newVoltage != curVoltage) {
+    dac.setVoltage( newVoltage  * .05);
+    curVoltage = newVoltage;
   }
 }

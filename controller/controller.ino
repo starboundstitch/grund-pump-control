@@ -25,7 +25,7 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(eStop), stop, CHANGE);
 
   // Set Stopstate Based on Button
-  if (digitalRead(eStop == HIGH)) {
+  if (digitalRead(eStop) == HIGH) {
     stopState = 1;
   }
 }

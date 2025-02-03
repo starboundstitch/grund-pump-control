@@ -10,11 +10,32 @@ static float newVoltage = 0;
 const byte eStop = 2;
 
 void setup() {
+
+  // Serial Setup
   Serial.begin(9600);
   Serial.setTimeout(1);
+
+  // I2C Setup
   Wire.begin();
   dac.begin();
   dac.setValue(0);
+
+  // Set Stop Interrupt
+  pinMode( eStop, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(eStop), stop, CHANGE);
+
+  // Set Stopstate Based on Button
+  if (digitalRead(eStop == HIGH)) {
+    stopState = 1;
+  }
+}
+
+// E-Stop Interrupt Function
+void stop() {
+    if (digitalRead(eStop) == HIGH) {
+      stopState = 1;
+    } else
+      stopState = 0;
 }
 
 String readSerial() {
@@ -33,15 +54,20 @@ String readSerial() {
 }
 
 void loop() {
+
+  // Set Voltage Loop (and check for serial data available)
   while (!Serial.available()) {
+    if (stopState == 1) {
+      dac.setVoltage(0);
+      curVoltage = 0;
+    }
+    else if (newVoltage != curVoltage) {
+      dac.setVoltage(newVoltage);
+      curVoltage = newVoltage;
+    }
     delay(10);
   }
 
-  float newVoltage = readSerial().toFloat();
+  newVoltage = readSerial().toFloat() * .05;
 
-
-  if (newVoltage != curVoltage) {
-    dac.setVoltage(newVoltage * .05);
-    curVoltage = newVoltage;
-  }
 }

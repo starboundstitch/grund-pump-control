@@ -1,7 +1,7 @@
 #include <MCP4725.h>
 #include <Wire.h>
 
-MCP4725 dac(0x62);
+MCP4725 dac(0x60);
 
 void setup() {
   Serial.begin(9600);

@@ -1,8 +1,7 @@
 FQBN=arduino:avr:nano
 PORT=/dev/ttyUSB0
 OPTS=-b $(FQBN) -p $(PORT)
-all: 
-	echo Not Implemented
+con: c_comp c_up
 
 c_comp:
 	arduino-cli compile controller/controller.ino $(OPTS)
@@ -10,5 +9,5 @@ c_comp:
 c_up:
 	arduino-cli upload controller/controller.ino $(OPTS)
 
-s_start:
+app:
 	python application/app.py $(PORT)
